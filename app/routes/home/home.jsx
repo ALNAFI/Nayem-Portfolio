@@ -111,6 +111,7 @@ export const Home = () => {
             {
               srcSet: `${devxoraTexture} 1280w, ${devxoraTexture} 2560w`,
               placeholder: sprTexturePlaceholder,
+              lazy: true,
             },
           ],
         }}
@@ -132,10 +133,12 @@ export const Home = () => {
             {
               srcSet: `${SpringFallSecondTexture} 375w, ${SpringFallSecondTexture} 750w`,
               placeholder: gamestackTexture2Placeholder,
+              lazy: true,
             },
             {
               srcSet: `${SpringFallFirstTexture} 375w, ${SpringFallFirstTexture} 750w`,
               placeholder: gamestackTexturePlaceholder,
+              lazy: true,
             },
 
           ],
@@ -157,6 +160,7 @@ export const Home = () => {
             {
               srcSet: `${CoolestProjectsTexure} 800w, ${CoolestProjectsTexure} 1920w`,
               placeholder: sliceTexturePlaceholder,
+              lazy: true,
             },
           ],
         }}

@@ -54,6 +54,14 @@ const rotationSpringConfig = {
   restSpeed: 0.001,
 };
 
+const waitForIdle = () => {
+  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+    return new Promise(resolve => window.requestIdleCallback(resolve));
+  }
+
+  return new Promise(resolve => setTimeout(resolve, 200));
+};
+
 export const Model = ({
   models,
   show = true,
@@ -413,6 +421,9 @@ const Device = ({
           applyScreenTexture(placeholder, placeholderScreen.current);
 
           loadFullResTexture = async () => {
+            if (texture.lazy) {
+              await waitForIdle();
+            }
             const image = await resolveSrcFromSrcSet(texture);
             const fullSize = await textureLoader.loadAsync(image);
             await applyScreenTexture(fullSize, node);
