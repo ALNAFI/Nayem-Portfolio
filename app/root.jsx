@@ -9,7 +9,7 @@ import {
   useNavigation,
   useRouteError,
 } from '@remix-run/react';
-import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
+import { createCookieSessionStorage, json } from '@remix-run/node';
 import { ThemeProvider, themeStyles } from '~/components/theme-provider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
@@ -45,7 +45,7 @@ export const links = () => [
   { rel: 'apple-touch-icon', href: '/icon-256.png', sizes: '256x256' },
 ];
 
-export const loader = async ({ request, context }) => {
+export const loader = async ({ request }) => {
   const { url } = request;
   const { pathname } = new URL(url);
   const pathnameSliced = pathname.endsWith('/') ? pathname.slice(0, -1) : url;
@@ -58,8 +58,8 @@ export const loader = async ({ request, context }) => {
       maxAge: 604_800,
       path: '/',
       sameSite: 'lax',
-      secrets: [context.cloudflare.env.SESSION_SECRET || ' '],
-      secure: true,
+      secrets: [process.env.SESSION_SECRET || ' '],
+      secure: process.env.NODE_ENV === 'production',
     },
   });
 
